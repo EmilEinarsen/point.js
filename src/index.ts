@@ -299,7 +299,7 @@ class P {
 
 	toString = () => `{x: ${this.x}, y: ${this.y}}`
 
-	log = () => (/* eslint-disable-line no-console */ console.log(this.toObject()), this)
+	clg = () => (/* eslint-disable-line no-console */ console.log(this.toObject()), this)
 }
 
 export { P }

@@ -127,17 +127,17 @@ describe('P', () => {
 			it('transform', () => {
 				expect(new P(10,33).transform(p => [p.x,p.y])).toStrictEqual([10,33])
 			})
-			it('log', () => {
+			it('clg', () => {
 				console.log = jest.fn();
 				const p = new P(10,33)
-				p.log()
+				p.clg()
 				expect(console.log).toHaveBeenCalledWith(p.toObject());
 
 				p.add(20)
 				const screenshot = p.toObject()
-				p.log().sub(20)
+				p.clg().sub(20)
 				expect(console.log).toHaveBeenCalledWith(screenshot);
-				p.log()
+				p.clg()
 				expect(console.log).toHaveBeenCalledWith(p.toObject());
 			})
 		})
