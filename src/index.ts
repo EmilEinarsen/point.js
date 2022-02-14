@@ -237,9 +237,9 @@ class P {
 	max */
 
 	/**
-	 * Calculates `this` rounded up to precision.
+	 * Mutates `this` by rounding up to precision.
 	 *
-	 * @param precision The precision to round down to.
+	 * @param precision The precision to round up to.
 	 * @return {this} `this`
 	 * @chainable
 	 * @example
@@ -250,7 +250,7 @@ class P {
 	ceil = this.#sideEffectWrapper(createRound(Math.ceil))
 
 	/**
-	 * Calculates `this` rounded down to precision.
+	 * Mutates `this` by rounding down to precision.
 	 *
 	 * @param precision The precision to round down to.
 	 * @return {this} `this`
@@ -263,9 +263,9 @@ class P {
 	floor = this.#sideEffectWrapper(createRound(Math.floor))
 
 	/**
-	 * Calculates `this` rounded to precision.
+	 * Mutates `this` by rounding to precision.
 	 *
-	 * @param precision The precision to round down to.
+	 * @param precision The precision to round to.
 	 * @return {this} `this`
 	 * @chainable
 	 * @example
@@ -276,9 +276,9 @@ class P {
 	round = this.#sideEffectWrapper(createRound(Math.round))
 
 	/**
-	 * Calculates `this` rounded towards 0 to precision.
+	 * Mutates `this` by rounding towards 0 to precision.
 	 *
-	 * @param precision The precision to round down to.
+	 * @param precision The precision to round towards 0.
 	 * @return {this} `this`
 	 * @chainable
 	 * @example
