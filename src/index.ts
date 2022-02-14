@@ -239,7 +239,7 @@ class P {
 	/**
 	 * Mutates `this` by rounding up to precision.
 	 *
-	 * @param precision The precision to round up to.
+	 * @param {number=} [precision=0] The precision to round up to.
 	 * @return {this} `this`
 	 * @chainable
 	 * @example
@@ -252,7 +252,7 @@ class P {
 	/**
 	 * Mutates `this` by rounding down to precision.
 	 *
-	 * @param precision The precision to round down to.
+	 * @param {number=} [precision=0] The precision to round down to.
 	 * @return {this} `this`
 	 * @chainable
 	 * @example
@@ -265,7 +265,7 @@ class P {
 	/**
 	 * Mutates `this` by rounding to precision.
 	 *
-	 * @param precision The precision to round to.
+	 * @param {number=} [precision=0] The precision to round to.
 	 * @return {this} `this`
 	 * @chainable
 	 * @example
@@ -278,7 +278,7 @@ class P {
 	/**
 	 * Mutates `this` by rounding towards 0 to precision.
 	 *
-	 * @param precision The precision to round towards 0.
+	 * @param {number=} [precision=0] The precision to round towards 0.
 	 * @return {this} `this`
 	 * @chainable
 	 * @example
