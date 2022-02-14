@@ -1,4 +1,4 @@
-import { createRound, random } from "./utils"
+import { clamp, createRound, random } from "./utils"
 
 
 type Point = { x: number, y: number }
@@ -45,13 +45,13 @@ class P {
 	private static staticArithWrapper = (methodName: string): ArithMethod => 
 		(arg, ...args) => (new P(arg) as any)[methodName](...args)
 
-	#wrapper = <U extends unknown[]>(
-		resolver: (...args: U) => number
-	) => (...args: U): this => this.#assign(this.#get(resolver(...args),resolver(...args)))
+	#wrapper = <T extends unknown[]>(
+		resolver: (...args: T) => number
+	) => (...args: T): this => this.#assign(this.#get(resolver(...args),resolver(...args)))
 
-	#sideEffectWrapper = <U extends unknown[]>(
-		resolver: (n: number,...args: U) => number
-	) => (...args: U): this => this.#assign(this.#get(resolver(this.x,...args),resolver(this.y,...args)))
+	#sideEffectWrapper = <T extends any[]>(
+		resolver: (n: number, ...args: T) => number
+	) => (...args: T): this => this.#assign(this.#get(resolver(this.x,...args),resolver(this.y,...args)))
 
 	constructor(...args: [ number | Partial<Point> | Partial<Bound> ] | Bound | []) {
 		this.#assign(this.#get(...args))
@@ -287,7 +287,7 @@ class P {
 	 * // => P { x: -5, y: 2 }
 	 */
 	trunc = this.#sideEffectWrapper(createRound(Math.trunc))
-
+	
 	/**
 	 * Mutates `this` by its square.
 	 *
@@ -359,6 +359,22 @@ class P {
 	 * // => P { x: -2, y: 1/2 }
 	 */
 	inv = () => this.pow(-1)
+
+	/**
+	 * Mutates `this` by clamping it within the inclusive `lower` and `upper` bounds.
+	 *
+	 * @param {number=} [lower=0] The lower bound.
+	 * @param {number} upper The upper bound.
+	 * @return {this} `this`
+	 * @example
+	 *
+	 * new P(10, -10).clamp(-5, 5)
+	 * // => P { x: 5, y: -5 }
+	 */
+	clamp = (...args: 
+		| [upper: number] 
+		| [lower: number, upper: number]
+	) => this.#assign(this.#get(clamp(this.x,...args),clamp(this.y,...args)))
 
 	random = this.#wrapper(random)
 	static random = (...args: Parameters<typeof random>) => new P().random(...args)

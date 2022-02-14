@@ -449,5 +449,40 @@ describe('P', () => {
 			expect(P.max(1,2,3,4,5,6,7).toArray()).toMatchObject([7,7])
 			expect(P.max([29,2],[592,2],[undefined,8],4,296,27,49,[237,2],2).toArray()).toMatchObject([592,296])
 		})
+		describe('clamp', () => {
+			it('should work with a `max`', () => {
+				expect(new P(5).clamp(3)).toMatchObject({x:3,y:3});
+				expect(new P(1).clamp(3)).toMatchObject({x:1,y:1});
+			});
+		
+			it('should clamp numbers', () => {
+				expect(new P(10, -10.2).clamp(-5,5.5)).toMatchObject({x:5.5,y:-5});
+				expect(new P(Infinity, -Infinity).clamp(-5,5)).toMatchObject({x:5,y:-5});
+			});
+		
+			it('should not alter numbers in range', () => {
+				expect(new P(-4, 4).clamp(-5,5)).toMatchObject({x:-4,y:4});
+				expect(new P(-5.5, 4.5).clamp(-5.6, 5.6)).toMatchObject({x:-5.5,y:4.5});
+			});
+		
+			it('should not alter `0/-0` in range', () => {
+				expect(1 / new P(0).clamp(-5,5).x).toStrictEqual(Infinity);
+				expect(1 / new P(-0).clamp(-5, 5).x).toStrictEqual(-Infinity);
+			});
+		
+			it('should clamp to `0/-0`', () => {
+				expect(1 / new P(-10).clamp(0, 5).x).toStrictEqual(Infinity);
+				expect(1 / new P(-10).clamp(-0, 5).x).toStrictEqual(-Infinity);
+			});
+		
+			it('should return `NaN` when `number` is `NaN`', () => {
+				expect(new P(NaN).clamp(-5, 5)).toMatchObject({x:NaN,y:NaN});
+			});
+		
+			it('should coerce `min` and `max` of `NaN` to `0`', () => {
+				expect(new P(1).clamp(-5, NaN)).toMatchObject({x:0,y:0});
+				expect(new P(-1).clamp(NaN, 5)).toMatchObject({x:0,y:0});
+			});
+		});
 	})
 })
