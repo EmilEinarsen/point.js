@@ -288,6 +288,78 @@ class P {
 	 */
 	trunc = this.#sideEffectWrapper(createRound(Math.trunc))
 
+	/**
+	 * Mutates `this` by its square.
+	 *
+	 * @return {this} `this`
+	 * @chainable
+	 * @example
+	 * 
+	 * new P(4, 9).sq()
+	 * // => P { x: 16, y: 81 }
+	 */
+	sq = this.#sideEffectWrapper(n => n ** 2)
+
+	/**
+	 * Mutates `this` by its square root.
+	 *
+	 * @return {this} `this`
+	 * @chainable
+	 * @example
+	 * 
+	 * new P(4, 9).sqrt()
+	 * // => P { x: 2, y: 3 }
+	 */
+	sqrt = this.#sideEffectWrapper(n => n ** .5)
+
+	/**
+	 * Mutates `this` by its cube.
+	 *
+	 * @return {this} `this`
+	 * @chainable
+	 * @example
+	 * 
+	 * new P(4, 9).cb()
+	 * // => P { x: 64, y: 729 }
+	 */
+	cb = this.#sideEffectWrapper(n => n ** 3)
+
+	/**
+	 * Mutates `this` by its cube root.
+	 *
+	 * @return {this} `this`
+	 * @chainable
+	 * @example
+	 * 
+	 * new P(8, 125).cbrt()
+	 * // => P { x: 2, y: 5 }
+	 */
+	cbrt = this.#sideEffectWrapper(n => n ** (1/3))
+
+	/**
+	 * Mutates `this` to its absolute.
+	 *
+	 * @return {this} `this`
+	 * @chainable
+	 * @example
+	 * 
+	 * new P(-8, 8).abs()
+	 * // => P { x: 8, y: 8 }
+	 */
+	abs = this.#sideEffectWrapper(Math.abs)
+
+	/**
+	 * Mutates `this` to its inverse.
+	 *
+	 * @return {this} `this`
+	 * @chainable
+	 * @example
+	 * 
+	 * new P(-1/2, 2).inv()
+	 * // => P { x: -2, y: 1/2 }
+	 */
+	inv = () => this.pow(-1)
+
 	random = this.#wrapper(random)
 	static random = (...args: Parameters<typeof random>) => new P().random(...args)
 

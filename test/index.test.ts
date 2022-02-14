@@ -313,12 +313,12 @@ describe('P', () => {
 				expect(new P(-2,3).abs()).toMatchObject({x:2,y:3})
 				expect(new P(-2).abs()).toMatchObject({x:2,y:2})
 			})
-			it('inverse', () => {
+			it('inv', () => {
 				expect(new P(2).inv()).toMatchObject({x:.5,y:.5})
 				expect(new P(-2).inv()).toMatchObject({x:-.5,y:-.5})
-				expect(new P(10,-66).inv()).toMatchObject([1/10,-1/66])
-				expect(new P(1/3).inv()).toMatchObject([3,3])
-				expect(new P(1/3,-4/7).inv()).toMatchObject([3,-7/4])
+				expect(new P(10,-66).inv()).toMatchObject({x:1/10,y:-1/66})
+				expect(new P(1/3).inv()).toMatchObject({x:3,y:3})
+				expect(new P(1/3,-4/7).inv()).toMatchObject({x:3,y:-7/4})
 			})
 		})
 	})
