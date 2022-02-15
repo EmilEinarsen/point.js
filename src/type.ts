@@ -11,7 +11,7 @@ type ArithMethod = (...args: (
 
 type Operation = (n: number) => Point
 
-interface Point {
+export interface Point {
 	x: number
 	y: number
 
@@ -42,7 +42,7 @@ interface Point {
 	 * // => P { x: 8, y: 5 }
 	 */
 	sub: ArithMethod
-	
+		
 	/**
 	 * Multiplies `this` by multiplicands, mutating `this` to the product.
 	 *
@@ -54,7 +54,7 @@ interface Point {
 	 * new P(10).mult([2,5])
 	 * // => P { x: 20, y: 50 }
 	 */
- 	mult: ArithMethod
+	mult: ArithMethod
 
 	/**
 	 * Divides `this` by divisors, mutating `this` to the quotient.
@@ -95,22 +95,6 @@ interface Point {
 	 */
 	pow: ArithMethod
 
-	/*
-	is
-	has
-	isZero
-	hasZero
-	isClose
-	check
-	clone
-	copy
-	zero
-	one
-	getSum
-	getDist
-	min
-	max */
-
 	/**
 	 * Mutates `this` by rounding up to precision.
 	 *
@@ -122,7 +106,7 @@ interface Point {
 	 * new P(-5.2, 2.9).ceil()
 	 * // => P { x: -5, y: 3 }
 	 */
-	 ceil: SideEffectWrapper<typeof ceil>
+	ceil: SideEffectWrapper<typeof ceil>
 
 	/**
 	 * Mutates `this` by rounding down to precision.
@@ -162,7 +146,7 @@ interface Point {
 	 * // => P { x: -5, y: 2 }
 	 */
 	trunc: SideEffectWrapper<typeof trunc>
-	 
+	
 	/**
 	 * Mutates `this` by its square.
 	 *
@@ -279,7 +263,7 @@ interface Point {
 
 	toObject(): this
 
-	toArray(): Bound
+	toArray(): [x: number, y: number]
 
 	toString(): `{x: ${number}, y: ${number}}`
 
@@ -290,7 +274,7 @@ export interface PointConstructor {
 	new (...args: Parameters<typeof getPoint>): Point;
 	(...args: Parameters<typeof getPoint>): Point;
 	prototype: Point;
-	
+		
 	/**
 	 * Adds addends, instantiating `P` by the sum.
 	 *
@@ -357,18 +341,18 @@ export interface PointConstructor {
 	mod: ArithMethod
 
 	/**
-	* Exponentiates exponents, instantiating `P` by the product.
-	*
-	* @param {...*} exponents exponents in the exponentiation.
-	* @return {P} `P`
-	* @chainable
-	* @example
-	* 
-	* P.pow(10,[2,4])
-	* // => P { x: 100, y: 10000 }
-	*/
+	 * Exponentiates exponents, instantiating `P` by the product.
+	 *
+	 * @param {...*} exponents exponents in the exponentiation.
+	 * @return {P} `P`
+	 * @chainable
+	 * @example
+	 * 
+	 * P.pow(10,[2,4])
+	 * // => P { x: 100, y: 10000 }
+	 */
 	pow: ArithMethod
 
-	
+		
 	random: Wrapper<typeof random>
 }

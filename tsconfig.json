@@ -16,7 +16,8 @@
     "noUnusedParameters": true,
     "skipLibCheck": true,
     "sourceMap": true,
-    "strict": true
+    "strict": true,
+		"removeComments": false
   },
   "include": ["src/**/*.ts"],
 	"exclude": ["test"]

@@ -12,7 +12,8 @@
     "precommit": "lint-staged",
     "release": "rollout",
     "build:dts": "tsc --emitDeclarationOnly -p . --outDir dts",
-    "build": "rm -rf dts && npm run build:dts && rollup -c rollup.config.js",
+    "build:notest": "rm -rf dts && rm -rf lib && npm run build:dts && rollup -c rollup.config.js",
+    "build": "npm run test && rm -rf dts && rm -rf lib && npm run build:dts && rollup -c rollup.config.js",
     "prepublishOnly": "npm run build"
   },
   "repository": {
