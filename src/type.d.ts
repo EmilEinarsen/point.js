@@ -1,27 +1,24 @@
-import { ceil, floor, round, trunc, random } from "./utils"
+import { ceil, floor, round, trunc, random, getPoint } from "./utils"
 
-type Point = { x: number, y: number }
-type Bound = [x: number, y: number]
-
-type Wrapper<T> = T extends (...args: infer U) => number ? (...args: U) => PPrototype : () => PPrototype
-type SideEffectWrapper<T> = T extends (n: number, ...args: infer U) => number ? (...args: U) => PPrototype : () => PPrototype
+type Wrapper<T> = T extends (...args: infer U) => number ? (...args: U) => Point : () => Point
+type SideEffectWrapper<T> = T extends (n: number, ...args: infer U) => number ? (...args: U) => Point : () => Point
 
 type ArithMethod = (...args: (
 	| number
-	| Partial<Point>
-	| Partial<Bound>
-)[]) => PPrototype
+	| { x?: number, y?: number }
+	| [x?: number, y?: number]
+)[]) => Point
 
-type Operation = (n: number) => PPrototype
+type Operation = (n: number) => Point
 
-interface PPrototype {
+interface Point {
 	x: number
 	y: number
 
-	set(p: Partial<Point>): this
+	set(...args: Parameters<typeof getPoint>): this
 
 	/**
-	 * @function add Adds addends to `this`, mutating `this` to the sum.
+	 * Adds addends to `this`, mutating `this` to the sum.
 	 *
 	 * @param {...*} addends addends in the addition.
 	 * @return {this} `this`
@@ -252,25 +249,47 @@ interface PPrototype {
 	clamp(...args:
 		| [upper: number]
 		| [lower: number, upper: number]
-	): Prototype
+	): this
+
+	between(...args:
+		| [p: Point]
+		| [n: number, distance?: number]
+		| [p: { x?: number, y?: number }, distance?: number]
+		| [p: [x?: number, y?: number], distance?: number]
+	): this
+
+	getSum(): number
+
+	getDist(...args:
+		| [p: Point]
+		| [n: number]
+		| [p: { x?: number, y?: number }]
+		| [p: [x?: number, y?: number]]
+	): number
+
+	clone(): this
+
+	copy(p: Point): this
  
 	random: Wrapper<typeof random>
 
-	transform: <T>(resolver: (p: PPrototype) => T) => T
+	operation(resolver: (m: number) => number): this
 
-	toObject(): Point
+	transform<T>(resolver: (p: this) => T): T
+
+	toObject(): this
 
 	toArray(): Bound
 
 	toString(): `{x: ${number}, y: ${number}}`
 
-	clg(): PPrototype
+	clg(): this
 }
 
-export interface PConstructor {
-	new (...args: Parameters<typeof getPoint>): PPrototype;
-	(...args: Parameters<typeof getPoint>): PPrototype;
-	prototype: PPrototype;
+export interface PointConstructor {
+	new (...args: Parameters<typeof getPoint>): Point;
+	(...args: Parameters<typeof getPoint>): Point;
+	prototype: Point;
 	
 	/**
 	 * Adds addends, instantiating `P` by the sum.

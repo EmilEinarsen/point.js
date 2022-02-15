@@ -1,19 +1,20 @@
-import { PConstructor, PPrototype } from "./type";
+import type { PointConstructor, Point } from "./type";
 import { arithOp, ceil, clamp, floor, getPoint, op, pureOp, random, round, trunc } from "./utils"
 
-const P = function P(this: PPrototype, ...args: Parameters<typeof getPoint>) {
-  this.set(getPoint(...args))
-} as unknown as PConstructor;
+const P = function P(this: Point, ...args: Parameters<typeof getPoint>) {
+  this.set(...args)
+} as unknown as PointConstructor;
 
 P.prototype = {
 	x: 0,
 	y: 0,
 
-	set(p) {
-		return Object.assign(this, {
-			x: p.x??0,
-			y: p.y??0,
-		})
+	set(...args) {
+		const p = getPoint(...args)
+		return Object.assign(this, { 
+			x: p.x??0, 
+			y: p.y??0 
+		}) 
 	},
 
 	add(...args) { return arithOp(this, (a,b) => a + (b??0), args) },
@@ -36,16 +37,6 @@ P.prototype = {
 
 	trunc(...args) { return op(this, trunc, args) },
 
-	transform(resolver) { return resolver(this) },
-
-	toObject() { return { ...this } },
-
-	toArray() { return [ this.x, this.y ] },
-
-	toString() { return `{x: ${this.x}, y: ${this.y}}` },
-
-	clg() { return (/* eslint-disable-line no-console */ console.log(this.toObject()), this) },
-
 	sq(...args) { return op(this, n => n ** 2, args) },
 
 	sqrt(...args) { return op(this, n => n ** .5, args) },
@@ -58,11 +49,31 @@ P.prototype = {
 
 	inv() { return this.pow(-1) },
 
-	clamp(...args){
-		return op(this, clamp, args)
-	},
+	clone() { return new P(this) },
 
-	random(...args) { return pureOp(this, random, args) }
+	copy(p: Point) { return this.set(p) },
+
+	clamp(...args) { return op(this, clamp, args) },
+
+	getSum() { return this.x + this.y},
+
+	getDist(arg) { return Math.sqrt(this.clone().sub(arg).sq().getSum()) },
+	
+	between(point, distance = .5) { return this.add(this.clone().sub(point).mult(distance).abs()) },
+
+	random(...args) { return pureOp(this, random, args) },
+
+	operation(resolver) { return this.set(resolver(this.x),resolver(this.y)) },
+
+	transform(resolver) { return resolver(this) },
+
+	toObject() { return { ...this } },
+
+	toArray() { return [ this.x, this.y ] },
+
+	toString() { return `{x: ${this.x}, y: ${this.y}}` },
+
+	clg() { return (/* eslint-disable-line no-console */ console.log(this.toObject()), this) },
 }
 
 P.prototype.constructor = P
@@ -81,5 +92,5 @@ P.pow = (arg, ...args) => new P(arg).pow(...args)
 
 P.random = (...args) => new P().random(...args)
 
-export { P }
+export default P
 

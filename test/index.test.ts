@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 
-import { P } from '../src'
+import P from '../src'
 
 describe('P', () => {
 	describe('Constructor & set', () => {
@@ -324,10 +324,9 @@ describe('P', () => {
 			})
 			it('between', () => {
 				expect(new P(2).between(5)).toMatchObject({x:3.5,y:3.5})
-				expect(new P(-2).between()).toMatchObject({x:-.5,y:-.5})
-				expect(new P(10,-66).between(-100,150)).toMatchObject({x:1/10,y:-1/66})
-				expect(new P(1/3).between()).toMatchObject({x:3,y:3})
-				expect(new P(1/3,-4/7).between()).toMatchObject({x:3,y:-7/4})
+				expect(new P(2).between(5, 0)).toMatchObject({x:2,y:2})
+				expect(new P(2).between(5, 1)).toMatchObject({x:5,y:5})
+				expect(new P(10,-66).between([-100,150])).toMatchObject({x:65,y:42})
 			})
 		})
 	})
@@ -360,9 +359,10 @@ describe('P', () => {
 			expect(p).toMatchObject(otherP)
 		})
 		it('getSum', () => {
-			expect(new P(-19).getSum()).toStrictEqual(-38)
-			expect(new P(1289).getSum(10)).toStrictEqual(1289*2+10*2)
-			expect(new P([undefined,20]).getSum(20,20)).toStrictEqual(20+20*2+20*2)
+			expect(new P(-19.5, 22.2).getSum()).toStrictEqual(-19.5+22.2)
+			expect(new P(1289).getSum()).toStrictEqual(1289*2)
+			expect(new P(-1289).getSum()).toStrictEqual(-1289*2)
+			expect(new P([undefined,20]).getSum()).toStrictEqual(20)
 			expect(new P({x:-2}).getSum()).toStrictEqual(-2)
 		})
 		it('getDist', () => {
