@@ -5,8 +5,9 @@ import { P } from '../src'
 describe('P', () => {
 	describe('Constructor & set', () => {
 		expect(Reflect.getPrototypeOf(new P(4)) === P.prototype).toBe(true)
-		expect(new P(4).constructor === P).toBe(true)
-		expect(new P(4) instanceof P).toBe(true)
+		expect(new P().constructor === P).toBe(true)
+		expect(new P() instanceof P).toBe(true)
+		expect({ ...new P() }).toMatchObject({x:0,y:0})
 		expect(new P(10,33)).toMatchObject({x:10,y:33})
 		expect(new P(99,0)).toMatchObject({x:99,y:0})
 		expect(new P(0,3)).toMatchObject({x:0,y:3})
@@ -204,6 +205,7 @@ describe('P', () => {
 			})
 			it('static', () => {
 				if(!isWorking) throw('Instance method failed')
+				P.mult()
 				expect(P.mult([1,2],[2,-7])).toMatchObject({x:2,y:-14})
 				expect(P.mult([1,2],[2,-7],[2,-7],[2,-7])).toMatchObject({x:8,y:-686})
 			})

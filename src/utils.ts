@@ -1,3 +1,4 @@
+import { Bound, Point, PPrototype } from "./type"
 
 export const random = (...args: 
 	| [ max: number ] 
@@ -20,3 +21,40 @@ export const clamp = (...args:
 	n = n <= upper ? n : upper
 	return n >= lower ? n : lower
 }
+
+export const getPoint = (...[a, b]: [(
+	| number
+	| Partial<Point>
+	| Partial<Bound>
+)] | Bound | undefined[]): Partial<Point> =>
+	Array.isArray(a) ? { x: a[0], y: a[1] }
+		: typeof a === 'object' ? { x: a.x, y: a.y }
+		: typeof a === 'number' && typeof b === 'number' ? { x: a, y: b }
+		: { x: a, y: a }
+
+export const arithOp = (
+	that: PPrototype,
+	resolver: (a: number, b?: number) => number,
+	args: (
+		| number
+		| Partial<Point>
+		| Partial<Bound>
+	)[]
+) => that.set(
+	args.reduce<Partial<Point>>((acc, ace) => {
+		ace = getPoint(ace);
+		return getPoint(resolver(acc.x??0, ace.x), resolver(acc.y??0, ace.y))
+	}, getPoint(that))
+)
+
+export const pureOp = <T extends unknown[]>(
+	that: PPrototype, 
+	resolver: (...args: T) => number, 
+	args: T
+) => that.set(getPoint(resolver(...args),resolver(...args)))
+
+export const op = <T extends unknown[]>(
+	that: PPrototype, 
+	resolver: (...args: [n: number, ...args: T]) => number, 
+	args: T
+) => that.set(getPoint(resolver(that.x,...args),resolver(that.y,...args)))
