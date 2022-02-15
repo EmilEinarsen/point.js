@@ -8,7 +8,16 @@ export const random = (...args:
 	return Math.floor(Math.random()*(max - min + 1) + min)
 }
 
-export const createRound = (method: (n: number) => number) => (n: number, precision = 0) => method(+`${n}e${precision}`)/+`1e${precision}`
+const createRound = (method: (n: number) => number) => 
+	(n: number, precision = 0) => method(+`${n}e${precision}`)/+`1e${precision}`
+
+export const ceil = createRound(Math.ceil)
+
+export const round = createRound(Math.round)
+
+export const floor = createRound(Math.floor)
+
+export const trunc = createRound(Math.trunc)
 
 export const clamp = (...args: 
 	| [ n: number, upper: number ] 

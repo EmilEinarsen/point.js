@@ -1,5 +1,5 @@
 import { PConstructor, PPrototype } from "./type";
-import { arithOp, clamp, createRound, getPoint, op, pureOp, random } from "./utils"
+import { arithOp, ceil, clamp, floor, getPoint, op, pureOp, random, round, trunc } from "./utils"
 
 const P = function P(this: PPrototype, ...args: Parameters<typeof getPoint>) {
   this.set(getPoint(...args))
@@ -28,13 +28,13 @@ P.prototype = {
 
 	pow(...args) { return arithOp(this, (a,b) => a ** (b??1), args) },
 
-	ceil(...args) { return op(this, createRound(Math.ceil), args) },
+	ceil(...args) { return op(this, ceil, args) },
 
-	round(...args) { return op(this, createRound(Math.round), args) },
+	round(...args) { return op(this, round, args) },
 
-	floor(...args) { return op(this, createRound(Math.floor), args) },
+	floor(...args) { return op(this, floor, args) },
 
-	trunc(...args) { return op(this, createRound(Math.trunc), args) },
+	trunc(...args) { return op(this, trunc, args) },
 
 	transform(resolver) { return resolver(this) },
 
@@ -82,3 +82,4 @@ P.pow = (arg, ...args) => new P(arg).pow(...args)
 P.random = (...args) => new P().random(...args)
 
 export { P }
+

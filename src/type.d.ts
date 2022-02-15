@@ -1,4 +1,4 @@
-import { createRound, random } from "./utils"
+import { ceil, floor, round, trunc, random } from "./utils"
 
 type Point = { x: number, y: number }
 type Bound = [x: number, y: number]
@@ -125,7 +125,7 @@ interface PPrototype {
 	 * new P(-5.2, 2.9).ceil()
 	 * // => P { x: -5, y: 3 }
 	 */
-	 ceil: SideEffectWrapper<ReturnType<typeof createRound>>
+	 ceil: SideEffectWrapper<typeof ceil>
 
 	/**
 	 * Mutates `this` by rounding down to precision.
@@ -138,7 +138,7 @@ interface PPrototype {
 	 * new P(-5.2, 2.9).floor()
 	 * // => P { x: -6, y: 2 }
 	 */
-	floor: SideEffectWrapper<ReturnType<typeof createRound>>
+	floor: SideEffectWrapper<typeof floor>
  
 	/**
 	 * Mutates `this` by rounding to precision.
@@ -151,7 +151,7 @@ interface PPrototype {
 	 * new P(-5.2, 2.9).round()
 	 * // => P { x: 5, y: 3 }
 	 */
-	round: SideEffectWrapper<ReturnType<typeof createRound>>
+	round: SideEffectWrapper<typeof round>
  
 	/**
 	 * Mutates `this` by rounding towards 0 to precision.
@@ -164,7 +164,7 @@ interface PPrototype {
 	 * new P(-5.2, 2.9).trunc()
 	 * // => P { x: -5, y: 2 }
 	 */
-	trunc: SideEffectWrapper<ReturnType<typeof createRound>>
+	trunc: SideEffectWrapper<typeof trunc>
 	 
 	/**
 	 * Mutates `this` by its square.
