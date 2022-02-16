@@ -50,10 +50,7 @@
   },
   "jest": {
     "testEnvironment": "node",
-    "roots": [
-      "test",
-      "src"
-    ],
+    "roots": ["test"],
     "testRegex": "\\.(j|t)s$",
     "testPathIgnorePatterns": [
       "helpers\\.ts",

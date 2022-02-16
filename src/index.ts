@@ -2,7 +2,12 @@ import type { PointConstructor, Point } from "./type";
 import { arithOp, ceil, clamp, floor, getPoint, op, pureOp, random, round, trunc } from "./utils"
 
 const P = function P(this: Point, ...args: Parameters<typeof getPoint>) {
-  this.set(...args)
+	const instance = this instanceof P ? this : Object.create(P.prototype, { 
+		x: { value: 0, writable: true, enumerable: true, configurable: false },
+		y: { value: 0, writable: true, enumerable: true, configurable: false }
+	})
+  instance.set(...args)
+	return instance
 } as unknown as PointConstructor;
 
 P.prototype = {
@@ -57,15 +62,25 @@ P.prototype = {
 
 	getSum() { return this.x + this.y},
 
-	getDist(arg) { return Math.sqrt(this.clone().sub(arg).sq().getSum()) },
+	getDistSq(arg) { return this.clone().sub(arg).sq().getSum() },
+
+	getDist(arg) { return Math.sqrt(this.getDistSq(arg)) },
 	
 	between(point, distance = .5) { return this.add(this.clone().sub(point).mult(distance).abs()) },
 
 	random(...args) { return pureOp(this, random, args) },
 
+	min(...args) { return arithOp(this, (a,b) => Math.min(...b?[a,b]:[a]), args) },
+
+	max(...args) { return arithOp(this, (a,b) => Math.max(...b?[a,b]:[a]), args) },
+
 	operation(resolver) { return this.set(resolver(this.x),resolver(this.y)) },
 
 	transform(resolver) { return resolver(this) },
+
+	check(resolver) { return resolver(this) },
+
+	is(point, threshold = 0) { return this.getDistSq(point) <= threshold**2 },
 
 	toObject() { return { ...this } },
 
@@ -91,6 +106,10 @@ P.mod = (arg, ...args) => new P(arg).mod(...args)
 P.pow = (arg, ...args) => new P(arg).pow(...args)
 
 P.random = (...args) => new P().random(...args)
+
+P.min = (arg, ...args) => new P(arg).min(...args)
+
+P.max = (arg, ...args) => new P(arg).max(...args)
 
 export default P
 

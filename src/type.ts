@@ -236,7 +236,7 @@ export interface Point {
 	): this
 
 	between(...args:
-		| [p: Point]
+		| [p: Point, distance?: number]
 		| [n: number, distance?: number]
 		| [p: { x?: number, y?: number }, distance?: number]
 		| [p: [x?: number, y?: number], distance?: number]
@@ -244,11 +244,18 @@ export interface Point {
 
 	getSum(): number
 
-	getDist(...args:
-		| [p: Point]
-		| [n: number]
-		| [p: { x?: number, y?: number }]
-		| [p: [x?: number, y?: number]]
+	getDistSq(arg:
+		| Point
+		| number
+		| { x?: number, y?: number }
+		| [x?: number, y?: number]
+	): number
+
+	getDist(args:
+		| Point
+		| number
+		| { x?: number, y?: number }
+		| [x?: number, y?: number]
 	): number
 
 	clone(): this
@@ -256,10 +263,23 @@ export interface Point {
 	copy(p: Point): this
  
 	random: Wrapper<typeof random>
+	
+	min: ArithMethod
+
+	max: ArithMethod
 
 	operation(resolver: (m: number) => number): this
 
 	transform<T>(resolver: (p: this) => T): T
+
+	check(resolver: (p: this) => boolean): boolean
+
+	is(...args:
+		| [p: Point, threshold?: number]
+		| [n: number, threshold?: number]
+		| [p: { x?: number, y?: number }, threshold?: number]
+		| [p: [x?: number, y?: number], threshold?: number]
+	): boolean
 
 	toObject(): this
 
@@ -271,7 +291,7 @@ export interface Point {
 }
 
 export interface PointConstructor {
-	new (...args: Parameters<typeof getPoint>): Point;
+	new(...args: Parameters<typeof getPoint>): Point;
 	(...args: Parameters<typeof getPoint>): Point;
 	prototype: Point;
 		
@@ -355,4 +375,8 @@ export interface PointConstructor {
 
 		
 	random: Wrapper<typeof random>
+	
+	min: ArithMethod
+
+	max: ArithMethod
 }
