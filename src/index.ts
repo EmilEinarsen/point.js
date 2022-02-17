@@ -1,5 +1,5 @@
 import type { PointConstructor, Point } from "./type";
-import { arithOp, ceil, clamp, floor, getPoint, op, pureOp, random, round, trunc } from "./utils"
+import { getPoint, arithOp, op, pureOp, random, round, ceil, clamp, floor, trunc } from "./utils"
 
 const P = function P(this: Point, ...args: Parameters<typeof getPoint>) {
 	const instance = this instanceof P ? this : Object.create(P.prototype, { 
@@ -83,6 +83,7 @@ P.prototype = {
 	is(point, threshold = 0) { return this.getDistSq(point) <= threshold**2 },
 
 	toObject() { return { ...this } },
+	eject() { return this.toObject() },
 
 	toArray() { return [ this.x, this.y ] },
 
