@@ -13,12 +13,12 @@
     "release": "rollout",
     "build:dts": "tsc --emitDeclarationOnly -p . --outDir dts",
     "build:notest": "rm -rf dts && rm -rf lib && npm run build:dts && rollup -c rollup.config.js",
-    "build": "npm run test && rm -rf dts && rm -rf lib && npm run build:dts && rollup -c rollup.config.js",
+    "build": "npm run test && rm -rf dts && rm -rf lib && npm run build:dts && rollup -c rollup.config.js && npm install . -g",
     "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/EmilEinarsen/point.git"
+    "url": "git+https://github.com/EmilEinarsen/pointjs.git"
   },
   "keywords": [
     "javascript",
@@ -31,9 +31,9 @@
   "author": "Emil Einarsen",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/EmilEinarsen/point/issues"
+    "url": "https://github.com/EmilEinarsen/pointjs/issues"
   },
-  "homepage": "https://github.com/EmilEinarsen/point#readme",
+  "homepage": "https://github.com/EmilEinarsen/pointjs#readme",
   "release": {
     "conventionalCommits": true,
     "publishDir": "lib"
