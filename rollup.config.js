@@ -11,6 +11,7 @@ const base = {
       babelrc: true,
       envName: 'esm',
       extensions: ['.js', '.ts'],
+			babelHelpers: 'bundled'
     }),
   ]
 };

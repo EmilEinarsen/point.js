@@ -1,4 +1,4 @@
-module.exports = (api) => ({
+module.exports = api => ({
   presets: [
     [
       'babel-preset-env-modules',
