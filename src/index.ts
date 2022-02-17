@@ -112,5 +112,5 @@ P.min = (arg, ...args) => new P(arg).min(...args)
 
 P.max = (arg, ...args) => new P(arg).max(...args)
 
-export default P
+export { P }
 

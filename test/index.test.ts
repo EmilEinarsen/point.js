@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 
-import P from '../src'
+import { P } from '../src'
 
 describe('P', () => {
 	describe('Constructor & set', () => {
