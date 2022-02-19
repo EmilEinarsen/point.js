@@ -1,6 +1,6 @@
 {
   "name": "point.js",
-  "description": "A JavaScript util for point calculations",
+  "description": "A JavaScript utility for point calculations",
   "version": "0.0.2",
   "main": "lib/index.js",
   "module": "lib/index.esm.js",
