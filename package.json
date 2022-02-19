@@ -1,6 +1,7 @@
 {
   "name": "point.js",
   "description": "A JavaScript util for point calculations",
+  "version": "0.0.2",
   "main": "lib/index.js",
   "module": "lib/index.esm.js",
   "scripts": {
@@ -18,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/EmilEinarsen/pointjs.git"
+    "url": "git+https://github.com/EmilEinarsen/point.js.git"
   },
   "keywords": [
     "javascript",
@@ -31,9 +32,9 @@
   "author": "Emil Einarsen",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/EmilEinarsen/pointjs/issues"
+    "url": "https://github.com/EmilEinarsen/point.js/issues"
   },
-  "homepage": "https://github.com/EmilEinarsen/pointjs#readme",
+  "homepage": "https://github.com/EmilEinarsen/point.js#readme",
   "release": {
     "conventionalCommits": true,
     "publishDir": "lib"
@@ -91,6 +92,5 @@
     "rollup-plugin-filesize": "^9.1.2",
     "rollup-plugin-node-resolve": "^5.2.0",
     "typescript": "^4.5.5"
-  },
-  "version": "0.0.2"
+  }
 }
