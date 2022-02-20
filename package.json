@@ -1,7 +1,7 @@
 {
   "name": "point.js",
   "description": "A JavaScript utility for point calculations",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "lib/index.js",
   "module": "lib/index.esm.js",
   "scripts": {
@@ -25,6 +25,7 @@
     "javascript",
     "typescript",
     "util",
+    "utility",
     "point",
     "point.js",
     "point.ts"
