@@ -1,8 +1,13 @@
 # Point.js
 
-Point.js is a JavaScript library for point calculations. Point.js has a general definition of "point" and most methods takes multiple parameters, allowing for complex, interdependent chaining and transformations.
-
 [![npm](https://img.shields.io/npm/v/point.js.svg?label=npm&color=007acc&logo=npm)](https://www.npmjs.com/package/point.js)
+[![size](https://img.shields.io/bundlephobia/min/point.js)](https://bundlephobia.com/package/point.js)
+[![dependency-count](https://badgen.net/bundlephobia/dependency-count/point.js)](https://bundlephobia.com/package/point.js)
+
+[![maintained](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/EmilEinarsen)
+[![mit](https://img.shields.io/github/license/micromatch/micromatch)](https://github.com/EmilEinarsen/point.js/blob/master/LICENSE)
+
+Point.js is a JavaScript library for point calculations. Point.js has a general definition of "point" and most methods takes multiple parameters, allowing for complex, interdependent chaining and transformations.
 
 ## Install
 
