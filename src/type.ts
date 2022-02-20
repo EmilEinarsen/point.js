@@ -247,7 +247,10 @@ export interface Point {
 	): this
 
 	/**
-	 * Mutates `this` to the point between `this` `point`.
+	 * Mutates `this` to the point between `this` and `point`.
+	 * The fraction of the distance is determined by the multiplicand `distance`.
+	 * `distance` is expected to be a number between 0-1. 
+	 * where 0 becomes the value of `this` and 1 the value of `point` 
 	 *
 	 * @param point The point.
 	 * @param {number=} [distance=0.5] The multiplicand of distance.
@@ -320,16 +323,15 @@ export interface Point {
 	 * const p = P(10, -10)
 	 * const clone = p.clone()
 	 * 
-	 * Object.is(p, clone)
-	 * // => false
-	 * 
-	 * p.is(clone)
-	 * // => true
+	 * Object.is(p, clone) // => false
+	 * p.is(clone) // => true
 	 */
 	clone(): this
 
 	/**
-	 * Copies the properties of `point` to `this`.
+	 * Copies the properties of `point` to `this`. 
+	 * Essentially an alias for `this.set` .
+	 * @see this.set
 	 *
 	 * @param point An instance of Point.
 	 * @return {this} `this`.
@@ -341,11 +343,8 @@ export interface Point {
 	 * 
 	 * p.copy(otherP)
 	 * 
-	 * Object.is(p, otherP)
-	 * // => false
-	 * 
-	 * p.is(otherP)
-	 * // => true
+	 * Object.is(p, otherP) // => false
+	 * p.is(otherP) // => true
 	 */
 	copy(point: Point): this
  
@@ -409,7 +408,7 @@ export interface Point {
 	 * @return {T} The result of the `resolver`.
 	 * @example
 	 *
-	 * P(20, 10).transform(p => { width: p.x, height: p.y })
+	 * P(20, 10).transform(p => ({ width: p.x, height: p.y }))
 	 * // => P { width: 20, height: 10 }
 	 */
 	transform<T>(resolver: (p: this) => T): T
@@ -421,7 +420,7 @@ export interface Point {
 	 * @return The result of the `resolver`.
 	 * @example
 	 *
-	 * P(NaN, 10).operation(n => Number.isNaN(n.x) || Number.isNaN(n.y))
+	 * P(NaN, 10).operation(p => Number.isNaN(p.x) || Number.isNaN(p.y))
 	 * // => true
 	 */
 	check(resolver: (p: this) => boolean): boolean
@@ -434,11 +433,9 @@ export interface Point {
 	 * @return The result of the equality check.
 	 * @example
 	 *
-	 * P(10, 10).is([11,11])
-	 * // => false
+	 * P(10, 10).is([11,11]) // => false
 	 * 
-	 * P(10, 10).is([13,7], 5)
-	 * // => true
+	 * P(10, 10).is([13,7], 5) // => true
 	 */
 	is(...args:
 		| [point: Point, threshold?: number]

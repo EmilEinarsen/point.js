@@ -94,23 +94,23 @@ P.prototype = {
 
 P.prototype.constructor = P
 
-P.add = (arg, ...args) => new P(arg).add(...args)
+P.add = (arg, ...args) => P(arg).add(...args)
 
-P.sub = (arg, ...args) => new P(arg).sub(...args)
+P.sub = (arg, ...args) => P(arg).sub(...args)
 
-P.mult = (arg, ...args) => new P(arg).mult(...args)
+P.mult = (arg, ...args) => P(arg).mult(...args)
 
-P.div = (arg, ...args) => new P(arg).div(...args)
+P.div = (arg, ...args) => P(arg).div(...args)
 
-P.mod = (arg, ...args) => new P(arg).mod(...args)
+P.mod = (arg, ...args) => P(arg).mod(...args)
 
-P.pow = (arg, ...args) => new P(arg).pow(...args)
+P.pow = (arg, ...args) => P(arg).pow(...args)
 
-P.random = (...args) => new P().random(...args)
+P.random = (...args) => P().random(...args)
 
-P.min = (arg, ...args) => new P(arg).min(...args)
+P.min = (arg, ...args) => P(arg).min(...args)
 
-P.max = (arg, ...args) => new P(arg).max(...args)
+P.max = (arg, ...args) => P(arg).max(...args)
 
 export { P }
 
